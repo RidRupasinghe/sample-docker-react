@@ -1,18 +1,19 @@
 sudo: required
+language: generic
+
 services:
   - docker
 
 before_install:
-  - docker build -t ridrupasinghe/sample-docker-react -f Dockerfile.dev .
+  - docker build -t ridrupasinghe/docker-react -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true ridrupasinghe/sample-docker-react npm run test
-
+  - docker run -e CI=true ridrupasinghe/docker-react npm run test
 
 deploy:
   provider: elasticbeanstalk
   access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: "$AWS_SECRET_KEY"
+  secret_access_key: $AWS_SECRET_KEY
   region: "eu-north-1"
   app: "frontend"
   env: "Frontend-env"
