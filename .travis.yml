@@ -1,24 +1,13 @@
-# language: node_js
-# node_js:
-#   - "14"
-
-# branches:
-#   only:
-#     - master
-
 sudo: required
 services:
   - docker
 
-# before_install:
-#   - docker build -t ridrupasinghe/sample-docker-react -f Dockerfile.dev .
+before_install:
+  - docker build -t ridrupasinghe/sample-docker-react -f Dockerfile.dev .
 
-# script:
-#   - docker run -e CI=true ridrupasinghe/sample-docker-react npm run test
+script:
+  - docker run -e CI=true ridrupasinghe/sample-docker-react npm run test
 
-# before_deploy:
-#   - zip -r frontend.zip * .[^.]*
-#   - echo "Deploying application..."
 
 deploy:
   provider: elasticbeanstalk
@@ -29,6 +18,5 @@ deploy:
   env: "Frontend-env"
   bucket_name: "elasticbeanstalk-eu-north-1-992382845023"
   bucket_path: "frontend"
-  # zip_file: "frontend.zip"
   on:
     branch: master
